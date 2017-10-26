@@ -1,10 +1,9 @@
 #include<string.h>
 #include<iostream>
 #include<vector>
-#include<algorithm>
 
-#define NONE 3
-#define RED 1 // Computer always sees itself as RED
+#define NONE 0
+#define RED 1
 #define BLUE 2
 
 using namespace std;
@@ -75,7 +74,7 @@ class gameState {
             for (int i = 0; i < strlen(nodes); i++) {
                 size_t found = a.toStr().find(nodes[i]);
                 if (found == string::npos) {
-                    
+
                 }
             }
         }
