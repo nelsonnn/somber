@@ -14,7 +14,8 @@ def main():
         color1 = guess[1]
         color2 = guess[2]
 
-        response = raw_input(''.join(guess) + "   Your answer: ")
+        in_response = raw_input(''.join(guess) + "   Your answer: ")
+        response = ''.join(sorted(in_response))
 
         if response:
             if response == "XXX":
@@ -46,9 +47,24 @@ def main():
                     if not( has0 and has1 and has2 ):
                         print "Removed: " , ''.join(poss)
                         canidates.remove(poss)
+            if response == "OX":
+                canidates.remove(guess)
+                for poss in canidates:
 
-            # TODO Implement "OX" rule
-            
+                    has0 = color0 in poss
+                    has1 = color1 in poss
+                    has2 = color2 in poss
+
+                    is0 = color0 == guess[0]
+                    is1 = color1 == guess[1]
+                    is2 = color2 == guess[2]
+
+                    if not( ( has0 and (is1 and not (has2 or is0) ) ) or ( has0 and ( is2 and not (has1 or is0) ) )
+                    or ( has1 and (is0 and not (has2 or is1) ) ) or ( has1 and (is2 and not (has0 or is1) ) )
+                    or ( has2 and (is0 and not (has1 or is2) ) ) or ( has2 and (is1 and not (has0 or is2) ) ) ):
+                        print "Removed: " , ''.join(poss)
+                        canidates.remove(poss)
+
             if response == "X":
                 canidates.remove(guess)
                 for poss in canidates:
@@ -62,7 +78,19 @@ def main():
                         print "Removed: " , ''.join(poss)
                         canidates.remove(poss)
 
-        print len(canidates), "possible right answers remaining"
+        else:
+            canidates.remove(guess)
+            for poss in canidates:
+
+                has0 = color0 in poss
+                has1 = color1 in poss
+                has2 = color2 in poss
+
+                if has0 or has1 or has2:
+                    print "Removed: " , ''.join(poss)
+                    canidates.remove(poss)
+
+        print len(canidates), "possible right answers remaining."
 
 
 
